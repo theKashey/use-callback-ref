@@ -1,2 +1,2 @@
 export {useCallbackRef} from './useRef';
-export {createCallbackRef} from './createREf';
+export {createCallbackRef} from './createRef';
