@@ -13,7 +13,9 @@
       <img src="https://img.shields.io/bundlephobia/minzip/use-callback-ref.svg" alt="bundle size">
     </a> 
 </div>
+
 ---
+
 > Keep in mind that useRef doesn't notify you when its content changes.
 Mutating the .current property doesn't cause a re-render.
 If you want to run some code when React attaches or detaches a ref to a DOM node, 
