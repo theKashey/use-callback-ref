@@ -1,6 +1,6 @@
 import {RefObject} from "react";
 
-export function createCallbackRef<T>(callback: (value: T) => any):RefObject<T> {
+export function createCallbackRef<T>(callback: (newValue: T, lastValue: T | null) => any): RefObject<T> {
   let current: T | null = null;
 
   return {
@@ -8,8 +8,11 @@ export function createCallbackRef<T>(callback: (value: T) => any):RefObject<T> {
       return current;
     },
     set current(value: T) {
-      current = value;
-      callback(value);
+      const last = current;
+      if (last !== value) {
+        current = value;
+        callback(value, last);
+      }
     }
   }
 }

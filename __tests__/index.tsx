@@ -13,7 +13,7 @@ describe('Specs', () => {
     const spy = jest.fn();
     const ref = createCallbackRef<HTMLDivElement>(spy);
     mount(<div ref={ref}>test</div>);
-    expect(spy).toBeCalledWith(ref.current);
+    expect(spy).toBeCalledWith(ref.current, null);
     expect(ref.current).not.toBe(null);
   });
 

@@ -14,6 +14,8 @@ which would be called on __ref update__.
 - (React.createRef) `createCallbackRef(callback)` - would call provided callback when ref is changed.
 - (React.useRef) `useRef(initialValue, callback)` - would call provided callback when ref is changed.
 
+- `callback` in both cases is `callback(newValue, oldValue)`. Callback would not be called if newValue and oldValue is the same.
+
 ```js
 import {useRef, createRef, useState} from 'react';
 import {useCallbackRef, createCallbackRef} from 'use-callback-ref';

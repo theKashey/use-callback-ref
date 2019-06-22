@@ -1,6 +1,6 @@
 import {MutableRefObject, useRef} from 'react';
 
-export function useCallbackRef<T>(initialValue: T, callback: (value: T) => void): MutableRefObject<T> {
+export function useCallbackRef<T>(initialValue: T, callback: (newValue: T, lastValue: T) => void): MutableRefObject<T> {
   const ref = useRef({
     // value
     value: initialValue,
@@ -12,13 +12,16 @@ export function useCallbackRef<T>(initialValue: T, callback: (value: T) => void)
         return ref.current.value;
       },
       set current(value) {
-        ref.current.value = value;
-        ref.current.callback(value);
+        const last = ref.current.value;
+        if (last !== value) {
+          ref.current.value = value;
+          ref.current.callback(value, last);
+        }
       }
     }
   });
   // update callback
   ref.current.callback = callback;
-  
+
   return ref.current.facade;
 }
