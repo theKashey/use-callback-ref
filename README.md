@@ -23,14 +23,19 @@ you may want to use ~~a callback ref instead~~ .... __useCallbackRef__ instead.
 
 – [Hooks API Reference](https://reactjs.org/docs/hooks-reference.html#useref)
 
+Read more about pattern - https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
+
 # API
 API is 99% compatible with React `createRef` and `useRef`, and just adds another argument - `callback`,
 which would be called on __ref update__.
 
-- `createCallbackRef(callback)` - (aka React.createRef) would call provided callback when ref is changed.
-- `useRef(initialValue, callback)` - (aka React.useRef)would call provided callback when ref is changed.
+#### createCallbackRef - to replace aka React.createRef
+- `createCallbackRef(callback)` -  would call provided `callback` when ref is changed.
 
-- `callback` in both cases is `callback(newValue, oldValue)`. Callback would not be called if newValue and oldValue is the same.
+#### useCallbackRef - to replace aka React.useRef
+- `useCallbackRef(initialValue, callback)` - would call provided `callback` when ref is changed.
+
+> `callback` in both cases is `callback(newValue, oldValue)`. Callback would not be called if newValue and oldValue is the same.
 
 ```js
 import {useRef, createRef, useState} from 'react';
@@ -52,3 +57,4 @@ const Component = () => {
 
 # License
 MIT
+
