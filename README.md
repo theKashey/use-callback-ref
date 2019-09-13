@@ -1,7 +1,7 @@
 <div align="center">
   <h1>🤙 use-callback-ref 📞</h1>
   <br/>
-  Hey! Your ref just got changed!
+  The same `useRef` but it will callback: 📞 Hello! Your ref was changed!
   <br/>
     <a href="https://www.npmjs.com/package/kashe">
       <img src="https://img.shields.io/npm/v/use-callback-ref.svg?style=flat-square" />
@@ -54,6 +54,10 @@ const Component = () => {
   }, [anotherRef.current]) // react to dom node change
 }
 ```
+
+## Is it rocket science?
+
+No, `RefObject` is no more than `{current: ref}`, and `use-callback-ref` is no more than `getter` and `setter` on that field. 300b for the everything.
 
 # License
 MIT
