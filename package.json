@@ -39,5 +39,16 @@
     "hoot",
     "useRef",
     "createRef"
+  ],
+  "size-limit": [
+    {
+      "path": "dist/es2015/index.js",
+      "limit": "0.5 KB"
+    },
+    {
+      "path": "dist/es2015/useRef.js",
+      "limit": "0.5 KB"
+    }
   ]
+
 }

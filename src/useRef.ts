@@ -1,6 +1,6 @@
 import {MutableRefObject, useRef} from 'react';
 
-export function useCallbackRef<T>(initialValue: T, callback: (newValue: T, lastValue: T) => void): MutableRefObject<T> {
+export function useCallbackRef<T>(initialValue: T | null, callback: (newValue: T | null, lastValue: T | null) => void): MutableRefObject<T | null> {
   const ref = useRef({
     // value
     value: initialValue,

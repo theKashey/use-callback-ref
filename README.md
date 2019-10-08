@@ -22,6 +22,7 @@ you may want to use ~~a callback ref instead~~ .... __useCallbackRef__ instead.
 – [Hooks API Reference](https://reactjs.org/docs/hooks-reference.html#useref)
 
 # API
+## useRef API
 API is 99% compatible with React `createRef` and `useRef`, and just adds another argument - `callback`,
 which would be called on __ref update__.
 
@@ -47,6 +48,35 @@ const Component = () => {
   }, [anotherRef.current]) // react to dom node change
 }
 ```
+
+💡 You can use `useCallbackRef` to convert RefObject into RefCallback, creating bridges between the old and the new code
+```js
+// some old component
+const onRefUpdate = (newValue) => {...}
+const refObject = useCallbackRef(null, onRefUpdate);
+// ...
+<SomeNewComponent ref={refObject}/>
+```
+
+## Additional API
+### mergeRefs
+`mergeRefs(refs: arrayOfRefs, [defaultValue]):ReactMutableRef` - merges a few refs together
+
+```js
+import React from 'react'
+import {mergeRefs} from 'use-callback-ref'
+
+const MergedComponent = React.forwardRef(function Example(props, ref) {
+  const localRef = React.useRef()
+  return <div ref={mergeRefs([localRef, ref])} />
+})
+```
+
+> based on https://github.com/smooth-code/react-merge-refs, just exposes RefObject, instead of callback
+
+When developing low level UI components, it is common to have to use a local ref but also support an external one using React.forwardRef. Natively, React does not offer a way to set two refs inside the ref property. This is the goal of this small utility.
+
+
 
 # License
 MIT
