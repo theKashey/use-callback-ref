@@ -1,6 +1,6 @@
 {
   "name": "use-callback-ref",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "The same useRef, but with callback",
   "main": "dist/es5/index.js",
   "scripts": {
@@ -50,5 +50,4 @@
       "limit": "0.5 KB"
     }
   ]
-
 }
