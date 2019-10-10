@@ -1,6 +1,7 @@
 import {ReactRef, RefCallback} from "./types";
+import {useRef} from "react";
 
-export function retToCallback<T>(ref: ReactRef<T>): RefCallback<T> {
+export function refToCallback<T>(ref: ReactRef<T>): RefCallback<T> {
   return newValue => {
     if (typeof ref === 'function') {
       ref(newValue)
@@ -8,4 +9,8 @@ export function retToCallback<T>(ref: ReactRef<T>): RefCallback<T> {
       ref.current = newValue
     }
   }
+}
+
+export function useRefToCallback<T>(ref: ReactRef<T>): RefCallback<T> {
+  return useRef(refToCallback(ref)).current;
 }

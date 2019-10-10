@@ -32,12 +32,17 @@ This library exposes helpers to handle any case related to `ref` _lifecycle_
 All functions are tree shakable, but even together it's __less then 300b__.
 
 # API
+Some commands are hooks based, and returns the same refs/functions every render. 
+But some are not. Probably you dont wont ever use `mergeRefs` instead of `useMergeRefs`.
+
 ## useRef API
+🤔 Use case: everytime you have to react to ref change
+
 API is 99% compatible with React `createRef` and `useRef`, and just adds another argument - `callback`,
 which would be called on __ref update__.
 
 - `createCallbackRef(callback)` - (aka React.createRef) would call provided callback when ref is changed.
-- `useRef(initialValue, callback)` - (aka React.useRef)would call provided callback when ref is changed.
+- `useCallbackRef(initialValue, callback)` - (aka React.useRef)would call provided callback when ref is changed.
 
 - `callback` in both cases is `callback(newValue, oldValue)`. Callback would not be called if newValue and oldValue is the same.
 
@@ -69,31 +74,61 @@ const refObject = useCallbackRef(null, onRefUpdate);
 ```
 
 ## assignRef
+🤔 Use case: every time you need to assing ref manually, and you dont know the shape of the ref
+
 `assignRef(ref, value)` - assigns `values` to the `ref`. `ref` could be RefObject or RefCallback.
 
-## transformRef
+```
+🚫 ref.current = value // what if it's a callback-ref?
+🚫 ref(value) // but what if it's a object ref?
+
+import {assignRef} from "use-callback-ref";
+✅ assignRef(ref, value); 
+```
+
+## useTransformRef (hook)
+🤔 Use case: ref could be different. 
 `transformRef(ref, tranformer):Ref` - return a new `ref` which would propagate all changes to the provided `ref` with applied `transform`
+
+```js
+// before
+const ResizableWithRef = forwardRef((props, ref) =>
+  <Resizable {...props} ref={i => i && ref(i.resizable)}/>
+);
+
+// after
+
+const ResizableWithRef = forwardRef((props, ref) =>
+  <Resizable {...props} ref={transformRef(ref, i => i ? i.resizable : null)}/>
+);
+```
 
 ## refToCallback
 `refToCallback(ref: RefObject): RefCallback` - for compatibility between the old and the new code.
 For the compatibility between `RefCallback` and RefObject use `useCallbackRef(undefined, callback)` 
 
-## mergeRefs
+## useMergeRefs (hook)
 `mergeRefs(refs: arrayOfRefs, [defaultValue]):ReactMutableRef` - merges a few refs together
+
+When developing low level UI components, it is common to have to use a local ref but also support an external one using React.forwardRef. Natively, React does not offer a way to set two refs inside the ref property. This is the goal of this small utility.
 
 ```js
 import React from 'react'
-import {mergeRefs} from 'use-callback-ref'
+import {useMergeRefs} from 'use-callback-ref'
 
-const MergedComponent = React.forwardRef(function Example(props, ref) {
-  const localRef = React.useRef()
-  return <div ref={mergeRefs([localRef, ref])} />
+const MergedComponent = React.forwardRef((props, ref) => {
+  const localRef = React.useRef();
+  // ...
+  // both localRef and ref would be populated with the `ref` to a `div`
+  return <div ref={useMergeRefs([localRef, ref])} />
 })
 ```
 
-> based on https://github.com/smooth-code/react-merge-refs, just exposes RefObject, instead of callback
+## mergeRefs 
+`mergeRefs(refs: arrayOfRefs, [defaultValue]):ReactMutableRef` - merges a few refs together
+is a non-hook based version. Will produce the new `ref` every run, causing the old one to unmount, and be _populated_ with the `null` value.
 
-When developing low level UI components, it is common to have to use a local ref but also support an external one using React.forwardRef. Natively, React does not offer a way to set two refs inside the ref property. This is the goal of this small utility.
+> mergeRefs are based on https://github.com/smooth-code/react-merge-refs, just exposes a RefObject, instead of a callback
 
 
 
