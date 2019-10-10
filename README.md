@@ -21,6 +21,16 @@ you may want to use ~~a callback ref instead~~ .... __useCallbackRef__ instead.
 
 – [Hooks API Reference](https://reactjs.org/docs/hooks-reference.html#useref)
 
+This library exposes helpers to handle any case related to `ref` _lifecycle_
+
+- `mergeRefs` - merge multiple refs together. For, actually, fork
+- `transformRef` - transform one ref to anther
+- `useRefCallback` - react on hook change
+- `refToCallback` - convert RefObject to an old callback-style ref
+- `assignRef` - assing value to the ref, regardless of it's form
+
+All functions are tree shakable, but even together it's __less then 300b__.
+
 # API
 ## useRef API
 API is 99% compatible with React `createRef` and `useRef`, and just adds another argument - `callback`,
@@ -58,8 +68,17 @@ const refObject = useCallbackRef(null, onRefUpdate);
 <SomeNewComponent ref={refObject}/>
 ```
 
-## Additional API
-### mergeRefs
+## assignRef
+`assignRef(ref, value)` - assigns `values` to the `ref`. `ref` could be RefObject or RefCallback.
+
+## transformRef
+`transformRef(ref, tranformer):Ref` - return a new `ref` which would propagate all changes to the provided `ref` with applied `transform`
+
+## refToCallback
+`refToCallback(ref: RefObject): RefCallback` - for compatibility between the old and the new code.
+For the compatibility between `RefCallback` and RefObject use `useCallbackRef(undefined, callback)` 
+
+## mergeRefs
 `mergeRefs(refs: arrayOfRefs, [defaultValue]):ReactMutableRef` - merges a few refs together
 
 ```js

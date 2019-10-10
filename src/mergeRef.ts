@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useCallbackRef} from "./useRef";
+import {assignRef} from "./assignRef";
 
 type ReactRef<T> = (
   ((newValue: T | null) => void) |
@@ -7,13 +8,7 @@ type ReactRef<T> = (
   );
 
 export function mergeRefs<T>(refs: ReactRef<T>[], defaultValue?: T): React.MutableRefObject<T | null> {
-  return useCallbackRef<T>(defaultValue, newValue => {
-    refs.forEach(ref => {
-      if (typeof ref === 'function') {
-        ref(newValue)
-      } else if (ref != null) {
-        ref.current = newValue
-      }
-    })
-  });
+  return useCallbackRef<T>(defaultValue, newValue => (
+    refs.forEach(ref => assignRef(ref, newValue))
+  ));
 }

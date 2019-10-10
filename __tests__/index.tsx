@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {createRef} from "react";
 import {mount} from 'enzyme';
-import {createCallbackRef, mergeRefs, useCallbackRef} from "../src";
+import {createCallbackRef, mergeRefs, transformRef, useCallbackRef} from "../src";
+import {retToCallback} from "../src/refToCallback";
 
 
 describe('Specs', () => {
@@ -70,5 +71,46 @@ describe('Specs', () => {
       expect(ref4).toBeCalledWith(ref);
     });
   });
+
+  describe('transformRef', () => {
+    it('composite case', () => {
+      const spy1 = jest.fn();
+      const spy2 = jest.fn();
+      const spy4 = jest.fn();
+
+      const ref1 = createCallbackRef<HTMLDivElement>(spy1);
+      const ref4t = createRef();
+
+      const TestComponent = () => {
+        const ref2 = createCallbackRef<string>(spy2);
+        const ref3 = transformRef<HTMLDivElement, string>(ref2, (current) => current!.innerHTML);
+        const ref4 = retToCallback<HTMLDivElement>(spy4);
+        const ref4s = retToCallback<HTMLDivElement>(ref4t);
+
+        return (
+          <div
+            ref={mergeRefs([
+              ref1,
+              ref3,
+              ref4,
+              ref4s
+            ])}
+          >test</div>
+        );
+      };
+
+      mount(<TestComponent />).setProps({x:1}).update();
+
+      const ref = ref1.current;
+      expect(ref).not.toBe(null);
+
+      expect(spy1).toBeCalledWith(ref, null);
+      expect(spy2).toBeCalledWith("test", null);
+      expect(ref4t.current).toBe(ref);
+      expect(spy4).toBeCalledWith(ref);
+    })
+  });
+
+
 
 });
