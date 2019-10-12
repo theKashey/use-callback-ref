@@ -1,10 +1,10 @@
-import {ReactRef} from "./types";
+import { ReactRef } from './types';
 
 export function assignRef<T>(ref: ReactRef<T>, value: T | null): ReactRef<T> {
   if (typeof ref === 'function') {
-    ref(value)
+    ref(value);
   } else if (ref != null) {
-    ref.current = value
+    ref.current = value;
   }
   return ref;
 }

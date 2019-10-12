@@ -16,27 +16,37 @@ describe('Specs', () => {
     it('shall work as createRef', () => {
       const spy = jest.fn();
       const ref = createCallbackRef<HTMLDivElement>(spy);
-      mount(<div ref={ref}>test</div>);
+      mount(<div ref={ref}>test</div>).setProps({}).update();
       expect(spy).toBeCalledWith(ref.current, null);
+      expect(spy).toHaveBeenCalledTimes(1);
       expect(ref.current).not.toBe(null);
     });
 
     it('shall work as useRef', () => {
-      const spy = jest.fn();
+      const spy1 = jest.fn();
+      const spy2 = jest.fn();
       let counter = 0;
       const Test = () => {
         const x = counter++;
-        const ref = useCallbackRef<HTMLDivElement>(null, () => spy(x));
-        return <div key={x < 2 ? '1' : '2'} ref={ref}>test</div>;
+        const ref = useCallbackRef<HTMLDivElement>(null, () => spy1(x));
+        const mref = useMergeRefs([ref, spy2]);
+        return <div key={x < 2 ? '1' : '2'} ref={mref}>test</div>;
       };
       const wrapper = mount(<Test/>);
-      expect(spy).toBeCalledWith(0);
+      expect(spy1).toBeCalledWith(0);
+      expect(spy1).toHaveBeenCalledTimes(1);
+      expect(spy2).not.toBeCalledWith(null);
+      expect(spy2).toHaveBeenCalledTimes(1);
 
       wrapper.setProps({x: 42});
-      expect(spy).toBeCalledWith(0);
+      expect(spy1).toBeCalledWith(0);
+      expect(spy1).toHaveBeenCalledTimes(1);
+      expect(spy2).not.toBeCalledWith(null);
 
       wrapper.setProps({x: 24});
-      expect(spy).toBeCalledWith(2);
+      expect(spy1).toBeCalledWith(2);
+      expect(spy1).toHaveBeenCalledTimes(3);
+      expect(spy2).toBeCalledWith(null);
     });
   });
 
@@ -70,6 +80,26 @@ describe('Specs', () => {
       // expect(ref3.current).toBe(ref);
       expect(ref4).toBeCalledWith(ref);
     });
+
+    it('ref equal', () => {
+      const spy = jest.fn();
+      const ref = createRef<HTMLDivElement>();
+      let counter = 0;
+      const Test = () => {
+        const x = counter++;
+        const mref = mergeRefs<HTMLDivElement>([spy, ref]);
+        return <div key={x < 1 ? '1' : '2'} ref={mref}>test</div>;
+      };
+      const wrapper = mount(<Test/>);
+      expect(spy).not.toBeCalledWith(null);
+      expect(spy).toBeCalledWith(ref.current);
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      wrapper.setProps({x: 42});
+      expect(spy).toBeCalledWith(null);
+      expect(spy).toBeCalledWith(ref.current);
+      expect(spy).toHaveBeenCalledTimes(3);
+    })
   });
 
   describe('transformRef', () => {

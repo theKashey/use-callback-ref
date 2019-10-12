@@ -23,7 +23,9 @@ you may want to use ~~a callback ref instead~~ .... __useCallbackRef__ instead.
 
 – [Hooks API Reference](https://reactjs.org/docs/hooks-reference.html#useref)
 
-Read more about pattern - https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
+Read more about `use-callback` pattern and use cases: 
+- https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
+
 
 This library exposes helpers to handle any case related to `ref` _lifecycle_
 

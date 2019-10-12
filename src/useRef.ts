@@ -1,7 +1,10 @@
-import {MutableRefObject, useRef} from 'react';
+import { MutableRefObject, useState } from 'react';
 
-export function useCallbackRef<T>(initialValue: T | null, callback: (newValue: T | null, lastValue: T | null) => void): MutableRefObject<T | null> {
-  const ref = useRef({
+export function useCallbackRef<T>(
+  initialValue: T | null,
+  callback: (newValue: T | null, lastValue: T | null) => void
+): MutableRefObject<T | null> {
+  const [ref] = useState(() => ({
     // value
     value: initialValue,
     // last callback
@@ -9,19 +12,19 @@ export function useCallbackRef<T>(initialValue: T | null, callback: (newValue: T
     // "memoized" public interface
     facade: {
       get current() {
-        return ref.current.value;
+        return ref.value;
       },
       set current(value) {
-        const last = ref.current.value;
+        const last = ref.value;
         if (last !== value) {
-          ref.current.value = value;
-          ref.current.callback(value, last);
+          ref.value = value;
+          ref.callback(value, last);
         }
       }
     }
-  });
+  }));
   // update callback
-  ref.current.callback = callback;
+  ref.callback = callback;
 
-  return ref.current.facade;
+  return ref.facade;
 }

@@ -1,6 +1,8 @@
-import {RefObject} from "react";
+import { RefObject, useImperativeHandle } from 'react';
 
-export function createCallbackRef<T>(callback: (newValue: T | null, lastValue: T | null) => any): RefObject<T> {
+export function createCallbackRef<T>(
+  callback: (newValue: T | null, lastValue: T | null) => any
+): RefObject<T> {
   let current: T | null = null;
 
   return {
@@ -14,5 +16,5 @@ export function createCallbackRef<T>(callback: (newValue: T | null, lastValue: T
         callback(value, last);
       }
     }
-  }
+  };
 }
