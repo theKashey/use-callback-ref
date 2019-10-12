@@ -29,20 +29,20 @@ Read more about `use-callback` pattern and use cases:
 
 This library exposes helpers to handle any case related to `ref` _lifecycle_
 
+- `useCallbackRef` - react on hook change
 - `mergeRefs` - merge multiple refs together. For, actually, fork
 - `transformRef` - transform one ref to anther
-- `useRefCallback` - react on hook change
 - `refToCallback` - convert RefObject to an old callback-style ref
-- `assignRef` - assing value to the ref, regardless of it's form
+- `assignRef` - assign value to the ref, regardless of it's form
 
 All functions are tree shakable, but even together it's __less then 300b__.
 
 # API
-Some commands are hooks based, and returns the same refs/functions every render. 
-But some are not. Probably you dont wont ever use `mergeRefs` instead of `useMergeRefs`.
+💡 Some commands are hooks based, and returns the same refs/functions every render. 
+But some are not, to be used in classes or non-react code.
 
 ## useRef API
-🤔 Use case: everytime you have to react to ref change
+🤔 Use case: every time you have to react to ref change
 
 API is 99% compatible with React `createRef` and `useRef`, and just adds another argument - `callback`,
 which would be called on __ref update__.
@@ -83,7 +83,7 @@ const refObject = useCallbackRef(null, onRefUpdate);
 ```
 
 ## assignRef
-🤔 Use case: every time you need to assing ref manually, and you dont know the shape of the ref
+🤔 Use case: every time you need to assign ref manually, and you dont know the shape of the ref
 
 `assignRef(ref, value)` - assigns `values` to the `ref`. `ref` could be RefObject or RefCallback.
 
@@ -95,7 +95,7 @@ import {assignRef} from "use-callback-ref";
 ✅ assignRef(ref, value); 
 ```
 
-## useTransformRef (hook)
+## useTransformRef (to replace React.useImperativeHandle)
 🤔 Use case: ref could be different. 
 `transformRef(ref, tranformer):Ref` - return a new `ref` which would propagate all changes to the provided `ref` with applied `transform`
 
@@ -116,7 +116,7 @@ const ResizableWithRef = forwardRef((props, ref) =>
 `refToCallback(ref: RefObject): RefCallback` - for compatibility between the old and the new code.
 For the compatibility between `RefCallback` and RefObject use `useCallbackRef(undefined, callback)` 
 
-## useMergeRefs (hook)
+## useMergeRefs
 `mergeRefs(refs: arrayOfRefs, [defaultValue]):ReactMutableRef` - merges a few refs together
 
 When developing low level UI components, it is common to have to use a local ref but also support an external one using React.forwardRef. Natively, React does not offer a way to set two refs inside the ref property. This is the goal of this small utility.
@@ -139,11 +139,11 @@ is a non-hook based version. Will produce the new `ref` every run, causing the o
 
 > mergeRefs are based on https://github.com/smooth-code/react-merge-refs, just exposes a RefObject, instead of a callback
 
+`mergeRefs` are "safe" to use as a part of other hooks-based commands, but don't forget - it returns a new object every call. 
 
+## Is it a rocket science?
 
-## Is it rocket science?
-
-No, `RefObject` is no more than `{current: ref}`, and `use-callback-ref` is no more than `getter` and `setter` on that field. 300b for the everything.
+No, `RefObject` is no more than `{current: ref}`, and `use-callback-ref` is no more than `getter` and `setter` on that field.
 
 # License
 MIT
