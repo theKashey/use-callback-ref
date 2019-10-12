@@ -12,7 +12,7 @@
     "noImplicitAny": true,
     "removeComments": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2015",
     "lib": [
       "dom",
       "es5",
