@@ -62,15 +62,15 @@ describe('Specs', () => {
       const TestComponent = () => (
         <div
           ref={mergeRefs([
-          ref1,
-          ref2,
-          ref3,
-          ref4,
-        ])}
+            ref1,
+            ref2,
+            ref3,
+            ref4,
+          ])}
         >test</div>
       );
 
-      mount(<TestComponent />);
+      mount(<TestComponent/>);
 
       const ref = ref1.current;
       expect(ref).not.toBe(null);
@@ -129,7 +129,7 @@ describe('Specs', () => {
         );
       };
 
-      mount(<TestComponent />).setProps({x:1}).update();
+      mount(<TestComponent/>).setProps({x: 1}).update();
 
       const ref = ref1.current;
       expect(ref).not.toBe(null);
@@ -140,4 +140,23 @@ describe('Specs', () => {
       expect(spy4).toBeCalledWith(ref);
     })
   });
+
+  describe('edge cases', () => {
+    it('null provided to useRefToCallback', () => {
+      expect(() => useRefToCallback(null)).not.toThrow();
+      expect(useRefToCallback(null)).toBe(useRefToCallback(null));
+      expect(() => useRefToCallback(null)(null)).not.toThrow();
+    });
+
+    it('merging null refs', () => {
+      const ref1 = createRef();
+      const TestComponent = () => {
+        const ref = useMergeRefs([null, ref1]);
+        ref.current = 'xx';
+        return null;
+      };
+      mount(<TestComponent/>);
+      expect(ref1.current).toBe('xx')
+    });
+  })
 });
