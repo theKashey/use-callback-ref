@@ -17,7 +17,7 @@
     "format": "ts-react-toolbox format",
     "analyze": "ts-react-toolbox analyze"
   },
-  "repository": "https://github.com/theKashey/kashe/",
+  "repository": "https://github.com/theKashey/use-callback-ref/",
   "author": "theKashey <thekashey@gmail.com>",
   "license": "MIT",
   "devDependencies": {

@@ -3,7 +3,7 @@
   <br/>
   The same `useRef` but it will callback: 📞 Hello! Your ref was changed!
   <br/>
-    <a href="https://www.npmjs.com/package/kashe">
+    <a href="https://www.npmjs.com/package/use-callback-ref">
       <img src="https://img.shields.io/npm/v/use-callback-ref.svg?style=flat-square" />
     </a>
     <a href="https://travis-ci.org/theKashey/use-callback-ref">
