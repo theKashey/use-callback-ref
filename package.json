@@ -21,7 +21,8 @@
   "author": "theKashey <thekashey@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "ts-react-toolbox": "^0.2.2"
+    "@types/react": "^16.9.11",
+    "ts-react-toolbox": "^0.2.11"
   },
   "engines": {
     "node": ">=8.5.0"
@@ -55,7 +56,5 @@
       "limit": "0.2 KB"
     }
   ],
-  "dependencies": {
-    "@types/react": "^16.9.11"
-  }
+  "dependencies": {}
 }
