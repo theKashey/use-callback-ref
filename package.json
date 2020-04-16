@@ -20,15 +20,21 @@
   "repository": "https://github.com/theKashey/use-callback-ref/",
   "author": "theKashey <thekashey@gmail.com>",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
-    "@types/react": "^16.9.11",
     "ts-react-toolbox": "^0.2.11"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "@types/react": "^16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=8.5.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
   },
   "jsnext:main": "dist/es2015/index.js",
   "module": "dist/es2015/index.js",
@@ -55,6 +61,5 @@
       "path": "dist/es2015/useMergeRef.js",
       "limit": "0.2 KB"
     }
-  ],
-  "dependencies": {}
+  ]
 }
