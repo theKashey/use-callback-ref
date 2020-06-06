@@ -10,7 +10,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "removeComments": true,
     "importHelpers": true,
     "target": "es2015",
     "lib": [
