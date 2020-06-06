@@ -1,6 +1,6 @@
 {
   "name": "use-callback-ref",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "The same useRef, but with callback",
   "main": "dist/es5/index.js",
   "sideEffects": false,
