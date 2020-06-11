@@ -133,6 +133,8 @@ const MergedComponent = React.forwardRef((props, ref) => {
 })
 ```
 
+💡 - `useMergeRefs` will always give you the same return, and you don't have to worry about `[localRef, ref]` unique every render.
+
 ## mergeRefs 
 `mergeRefs(refs: arrayOfRefs, [defaultValue]):ReactMutableRef` - merges a few refs together
 is a non-hook based version. Will produce the new `ref` every run, causing the old one to unmount, and be _populated_ with the `null` value.
@@ -141,9 +143,13 @@ is a non-hook based version. Will produce the new `ref` every run, causing the o
 
 `mergeRefs` are "safe" to use as a part of other hooks-based commands, but don't forget - it returns a new object every call. 
 
-## Is it a rocket science?
+# Similar packages:
+- [apply-ref](https://github.com/mitchellhamilton/apply-ref) - `applyRefs` is simular to `mergeRef`, `applyRef` is similar to `assignRef`
+- [useForkRef](https://react-hooks.org/docs/use-fork-ref) - `useForkRef` is simular to `useMergeRefs`, but accepts only two arguments.
 
-No, `RefObject` is no more than `{current: ref}`, and `use-callback-ref` is no more than `getter` and `setter` on that field.
+---
+
+> Is it a rocket science? No, `RefObject` is no more than `{current: ref}`, and `use-callback-ref` is no more than `getter` and `setter` on that field.
 
 # License
 MIT
