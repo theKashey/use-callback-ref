@@ -146,6 +146,7 @@ is a non-hook based version. Will produce the new `ref` every run, causing the o
 # Similar packages:
 - [apply-ref](https://github.com/mitchellhamilton/apply-ref) - `applyRefs` is simular to `mergeRef`, `applyRef` is similar to `assignRef`
 - [useForkRef](https://react-hooks.org/docs/use-fork-ref) - `useForkRef` is simular to `useMergeRefs`, but accepts only two arguments.
+- [use-merge-refs](https://github.com/gregberge/react-merge-refs) - `merge-red` is simular to `useMergeRefs`, but does not provide "stable" reference.
 
 ---
 
