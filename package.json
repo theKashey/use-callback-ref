@@ -25,8 +25,8 @@
     "ts-react-toolbox": "^0.2.11"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "@types/react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0",
+    "@types/react": "^16.8.0 || ^17.0.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
