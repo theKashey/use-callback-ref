@@ -1,6 +1,6 @@
+import { assignRef } from './assignRef';
 import { ReactRef, RefObject } from './types';
 import { useCallbackRef } from './useRef';
-import { assignRef } from './assignRef';
 
 /**
  * Create a _lense_ on Ref, making it possible to transform ref value
@@ -15,11 +15,6 @@ import { assignRef } from './assignRef';
  *  <Resizable {...props} ref={useTransformRef(ref, i => i ? i.resizable : null)}/>
  * );
  */
-export function useTransformRef<T, K>(
-  ref: ReactRef<K>,
-  transformer: (original: T) => K
-): RefObject<T> {
-  return useCallbackRef<T>(undefined, value =>
-    assignRef(ref, transformer(value))
-  );
+export function useTransformRef<T, K>(ref: ReactRef<K>, transformer: (original: T) => K): RefObject<T> {
+  return useCallbackRef<T>(undefined, (value) => assignRef(ref, transformer(value)));
 }

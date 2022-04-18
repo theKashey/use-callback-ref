@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useCallbackRef } from './useRef';
+
 import { assignRef } from './assignRef';
 import { ReactRef } from './types';
+import { useCallbackRef } from './useRef';
 
 /**
  * Merges two or more refs together providing a single interface to set their value
@@ -17,11 +18,6 @@ import { ReactRef } from './types';
  *   return <div ref={domRef}>...</div>
  * }
  */
-export function useMergeRefs<T>(
-  refs: ReactRef<T>[],
-  defaultValue?: T
-): React.MutableRefObject<T | null> {
-  return useCallbackRef<T>(defaultValue, newValue =>
-    refs.forEach(ref => assignRef(ref, newValue))
-  );
+export function useMergeRefs<T>(refs: ReactRef<T>[], defaultValue?: T): React.MutableRefObject<T | null> {
+  return useCallbackRef<T>(defaultValue, (newValue) => refs.forEach((ref) => assignRef(ref, newValue)));
 }

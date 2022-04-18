@@ -1,4 +1,4 @@
-import {ReactRef, RefCallback} from './types';
+import { ReactRef, RefCallback } from './types';
 
 /**
  * Unmemoized version of {@link useRefToCallback}
@@ -6,7 +6,7 @@ import {ReactRef, RefCallback} from './types';
  * @param ref
  */
 export function refToCallback<T>(ref: ReactRef<T>): RefCallback<T> {
-  return newValue => {
+  return (newValue) => {
     if (typeof ref === 'function') {
       ref(newValue);
     } else if (ref) {
@@ -19,13 +19,17 @@ const nullCallback = (): any => null;
 // lets maintain a weak ref to, well, ref :)
 // not using `kashe` to keep this package small
 const weakMem = new WeakMap<ReactRef<any>, RefCallback<any>>();
+
 const weakMemoize = (ref: ReactRef<any>) => {
   const usedRef = ref || nullCallback;
+
   if (weakMem.has(usedRef)) {
     return weakMem.get(usedRef);
   }
+
   const cb = refToCallback(usedRef);
   weakMem.set(usedRef, cb);
+
   return cb;
 };
 

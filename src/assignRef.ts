@@ -19,5 +19,6 @@ export function assignRef<T>(ref: ReactRef<T>, value: T | null): ReactRef<T> {
   } else if (ref) {
     ref.current = value;
   }
+
   return ref;
 }

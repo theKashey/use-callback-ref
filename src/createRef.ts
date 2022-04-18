@@ -8,9 +8,7 @@ import { RefObject } from 'react';
  * @see {@link useCallbackRef}
  * @see https://reactjs.org/docs/refs-and-the-dom.html#creating-refs
  */
-export function createCallbackRef<T>(
-  callback: (newValue: T | null, lastValue: T | null) => any
-): RefObject<T> {
+export function createCallbackRef<T>(callback: (newValue: T | null, lastValue: T | null) => any): RefObject<T> {
   let current: T | null = null;
 
   return {
@@ -19,10 +17,11 @@ export function createCallbackRef<T>(
     },
     set current(value: T) {
       const last = current;
+
       if (last !== value) {
         current = value;
         callback(value, last);
       }
-    }
+    },
   };
 }

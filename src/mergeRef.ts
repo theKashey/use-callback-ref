@@ -1,7 +1,8 @@
-import {MutableRefObject} from 'react';
-import {createCallbackRef} from './createRef';
-import {assignRef} from './assignRef';
-import {ReactRef} from './types';
+import { MutableRefObject } from 'react';
+
+import { assignRef } from './assignRef';
+import { createCallbackRef } from './createRef';
+import { ReactRef } from './types';
 
 /**
  * Merges two or more refs together providing a single interface to set their value
@@ -16,10 +17,6 @@ import {ReactRef} from './types';
  *   return <div ref={domRef}>...</div>
  * }
  */
-export function mergeRefs<T>(
-  refs: ReactRef<T>[]
-): MutableRefObject<T | null> {
-  return createCallbackRef<T>(newValue =>
-    refs.forEach(ref => assignRef(ref, newValue))
-  );
+export function mergeRefs<T>(refs: ReactRef<T>[]): MutableRefObject<T | null> {
+  return createCallbackRef<T>((newValue) => refs.forEach((ref) => assignRef(ref, newValue)));
 }
