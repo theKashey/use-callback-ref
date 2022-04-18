@@ -15,6 +15,6 @@ import { useCallbackRef } from './useRef';
  *  <Resizable {...props} ref={useTransformRef(ref, i => i ? i.resizable : null)}/>
  * );
  */
-export function useTransformRef<T, K>(ref: ReactRef<K>, transformer: (original: T) => K): RefObject<T> {
-  return useCallbackRef<T>(undefined, (value) => assignRef(ref, transformer(value)));
+export function useTransformRef<T, K>(ref: ReactRef<K>, transformer: (original: T | null) => K): RefObject<T> {
+  return useCallbackRef<T>(null, (value) => assignRef(ref, transformer(value)));
 }

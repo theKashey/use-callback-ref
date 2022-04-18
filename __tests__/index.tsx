@@ -1,9 +1,19 @@
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
-import {createRef} from "react";
-import {mount} from 'enzyme';
-import {createCallbackRef, mergeRefs, useTransformRef, useCallbackRef, useMergeRefs} from "../src";
-import {refToCallback, useRefToCallback} from "../src/refToCallback";
+import { createRef } from 'react';
 
+import {
+  refToCallback,
+  useRefToCallback,
+  createCallbackRef,
+  mergeRefs,
+  useTransformRef,
+  useCallbackRef,
+  useMergeRefs,
+} from '../src';
+
+configure({ adapter: new Adapter() });
 
 describe('Specs', () => {
   describe('useCallbackRef', () => {
@@ -16,7 +26,11 @@ describe('Specs', () => {
     it('shall work as createRef', () => {
       const spy = jest.fn();
       const ref = createCallbackRef<HTMLDivElement>(spy);
-      mount(<div ref={ref}>test</div>).setProps({}).update();
+
+      mount(<div ref={ref}>test</div>)
+        .setProps({})
+        .update();
+
       expect(spy).toBeCalledWith(ref.current, null);
       expect(spy).toHaveBeenCalledTimes(1);
       expect(ref.current).not.toBe(null);
@@ -26,24 +40,31 @@ describe('Specs', () => {
       const spy1 = jest.fn();
       const spy2 = jest.fn();
       let counter = 0;
+
       const Test = () => {
         const x = counter++;
         const ref = useCallbackRef<HTMLDivElement>(null, () => spy1(x));
         const mref = useMergeRefs([ref, spy2]);
-        return <div key={x < 2 ? '1' : '2'} ref={mref}>test</div>;
+
+        return (
+          <div key={x < 2 ? '1' : '2'} ref={mref}>
+            test
+          </div>
+        );
       };
-      const wrapper = mount(<Test/>);
+
+      const wrapper = mount(<Test />);
       expect(spy1).toBeCalledWith(0);
       expect(spy1).toHaveBeenCalledTimes(1);
       expect(spy2).not.toBeCalledWith(null);
       expect(spy2).toHaveBeenCalledTimes(1);
 
-      wrapper.setProps({x: 42});
+      wrapper.setProps({ x: 42 });
       expect(spy1).toBeCalledWith(0);
       expect(spy1).toHaveBeenCalledTimes(1);
       expect(spy2).not.toBeCalledWith(null);
 
-      wrapper.setProps({x: 24});
+      wrapper.setProps({ x: 24 });
       expect(spy1).toBeCalledWith(2);
       expect(spy1).toHaveBeenCalledTimes(3);
       expect(spy2).toBeCalledWith(null);
@@ -51,7 +72,7 @@ describe('Specs', () => {
   });
 
   describe('mergeRef', () => {
-    it("merges two refs", () => {
+    it('merges two refs', () => {
       const spy1 = jest.fn();
       const ref1 = createCallbackRef<HTMLDivElement>(spy1);
       const spy2 = jest.fn();
@@ -59,18 +80,9 @@ describe('Specs', () => {
       const ref3 = createRef() as React.MutableRefObject<any>;
       const ref4 = jest.fn();
 
-      const TestComponent = () => (
-        <div
-          ref={mergeRefs([
-            ref1,
-            ref2,
-            ref3,
-            ref4,
-          ])}
-        >test</div>
-      );
+      const TestComponent = () => <div ref={mergeRefs([ref1, ref2, ref3, ref4])}>test</div>;
 
-      mount(<TestComponent/>);
+      mount(<TestComponent />);
 
       const ref = ref1.current;
       expect(ref).not.toBe(null);
@@ -85,21 +97,28 @@ describe('Specs', () => {
       const spy = jest.fn();
       const ref = createRef<HTMLDivElement>();
       let counter = 0;
+
       const Test = () => {
         const x = counter++;
         const mref = mergeRefs<HTMLDivElement>([spy, ref]);
-        return <div key={x < 1 ? '1' : '2'} ref={mref}>test</div>;
+
+        return (
+          <div key={x < 1 ? '1' : '2'} ref={mref}>
+            test
+          </div>
+        );
       };
-      const wrapper = mount(<Test/>);
+
+      const wrapper = mount(<Test />);
       expect(spy).not.toBeCalledWith(null);
       expect(spy).toBeCalledWith(ref.current);
       expect(spy).toHaveBeenCalledTimes(1);
 
-      wrapper.setProps({x: 42});
+      wrapper.setProps({ x: 42 });
       expect(spy).toBeCalledWith(null);
       expect(spy).toBeCalledWith(ref.current);
       expect(spy).toHaveBeenCalledTimes(3);
-    })
+    });
   });
 
   describe('transformRef', () => {
@@ -117,28 +136,21 @@ describe('Specs', () => {
         const ref4 = refToCallback<HTMLDivElement>(spy4);
         const ref4s = useRefToCallback<HTMLDivElement>(ref4t);
 
-        return (
-          <div
-            ref={useMergeRefs([
-              ref1,
-              ref3,
-              ref4,
-              ref4s
-            ])}
-          >test</div>
-        );
+        return <div ref={useMergeRefs([ref1, ref3, ref4, ref4s])}>test</div>;
       };
 
-      mount(<TestComponent/>).setProps({x: 1}).update();
+      mount(<TestComponent />)
+        .setProps({ x: 1 })
+        .update();
 
       const ref = ref1.current;
       expect(ref).not.toBe(null);
 
       expect(spy1).toBeCalledWith(ref, null);
-      expect(spy2).toBeCalledWith("test", null);
+      expect(spy2).toBeCalledWith('test', null);
       expect(ref4t.current).toBe(ref);
       expect(spy4).toBeCalledWith(ref);
-    })
+    });
   });
 
   describe('edge cases', () => {
@@ -150,13 +162,16 @@ describe('Specs', () => {
 
     it('merging null refs', () => {
       const ref1 = createRef();
+
       const TestComponent = () => {
         const ref = useMergeRefs([null, ref1]);
         ref.current = 'xx';
+
         return null;
       };
-      mount(<TestComponent/>);
-      expect(ref1.current).toBe('xx')
+
+      mount(<TestComponent />);
+      expect(ref1.current).toBe('xx');
     });
-  })
+  });
 });

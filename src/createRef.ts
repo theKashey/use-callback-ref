@@ -15,7 +15,7 @@ export function createCallbackRef<T>(callback: (newValue: T | null, lastValue: T
     get current() {
       return current;
     },
-    set current(value: T) {
+    set current(value: T | null) {
       const last = current;
 
       if (last !== value) {

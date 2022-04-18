@@ -1,0 +1,17 @@
+[
+  {
+    "name": "dist/es2015/index.js",
+    "passed": true,
+    "size": 380
+  },
+  {
+    "name": "dist/es2015/useRef.js",
+    "passed": true,
+    "size": 125
+  },
+  {
+    "name": "dist/es2015/useMergeRef.js",
+    "passed": true,
+    "size": 174
+  }
+]

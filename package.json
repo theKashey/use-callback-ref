@@ -31,7 +31,9 @@
   },
   "devDependencies": {
     "@theuiteam/lib-builder": "^0.1.4",
-    "@size-limit/preset-small-lib": "^2.1.6"
+    "@size-limit/preset-small-lib": "^2.1.6",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "enzyme-adapter-react-16": "^1.15.6"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
