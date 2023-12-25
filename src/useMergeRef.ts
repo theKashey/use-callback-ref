@@ -4,6 +4,8 @@ import { assignRef } from './assignRef';
 import { ReactRef } from './types';
 import { useCallbackRef } from './useRef';
 
+const currentValues = new WeakMap<any, ReactRef<any>[]>();
+
 /**
  * Merges two or more refs together providing a single interface to set their value
  * @param {RefObject|Ref} refs
@@ -19,5 +21,34 @@ import { useCallbackRef } from './useRef';
  * }
  */
 export function useMergeRefs<T>(refs: ReactRef<T>[], defaultValue?: T): React.MutableRefObject<T | null> {
-  return useCallbackRef<T>(defaultValue || null, (newValue) => refs.forEach((ref) => assignRef(ref, newValue)));
+  const callbackRef = useCallbackRef<T>(defaultValue || null, (newValue) =>
+    refs.forEach((ref) => assignRef(ref, newValue))
+  );
+
+  // handle refs changes - added or removed
+  React.useLayoutEffect(() => {
+    const oldValue = currentValues.get(callbackRef);
+
+    if (oldValue) {
+      const prevRefs = new Set(oldValue);
+      const nextRefs = new Set(refs);
+      const current = callbackRef.current;
+
+      prevRefs.forEach((ref) => {
+        if (!nextRefs.has(ref)) {
+          assignRef(ref, null);
+        }
+      });
+
+      nextRefs.forEach((ref) => {
+        if (!prevRefs.has(ref)) {
+          assignRef(ref, current);
+        }
+      });
+    }
+
+    currentValues.set(callbackRef, refs);
+  }, [refs]);
+
+  return callbackRef;
 }

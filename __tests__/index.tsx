@@ -173,5 +173,24 @@ describe('Specs', () => {
       mount(<TestComponent />);
       expect(ref1.current).toBe('xx');
     });
+
+    it('updating refs on the fly', () => {
+      const ref1 = createRef();
+      const ref2 = createRef();
+
+      const TestComponent = ({ r }: { r: React.RefObject<any> }) => {
+        const ref = useMergeRefs([null, r]);
+        ref.current = 'xx';
+
+        return null;
+      };
+
+      const wrapper = mount(<TestComponent r={ref1} />);
+      expect(ref1.current).toBe('xx');
+
+      wrapper.setProps({ r: ref2 });
+      expect(ref1.current).toBe(null);
+      expect(ref2.current).toBe('xx');
+    });
   });
 });
