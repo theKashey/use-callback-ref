@@ -4,6 +4,8 @@ import { assignRef } from './assignRef';
 import { ReactRef } from './types';
 import { useCallbackRef } from './useRef';
 
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
 const currentValues = new WeakMap<any, ReactRef<any>[]>();
 
 /**
@@ -26,7 +28,7 @@ export function useMergeRefs<T>(refs: ReactRef<T>[], defaultValue?: T): React.Mu
   );
 
   // handle refs changes - added or removed
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const oldValue = currentValues.get(callbackRef);
 
     if (oldValue) {
