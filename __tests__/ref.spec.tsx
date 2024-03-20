@@ -57,7 +57,9 @@ test('works with two refs', async () => {
         return <div ref={mergedRef} data-testid="foo"/>
     }
 
-    render(<TestMe/>)
+    render(<TestMe/>, {
+        wrapper: ({children}) => <React.StrictMode>{children}</React.StrictMode>
+    })
 
     const div = await screen.findByTestId('foo')
     expect(currents).toEqual([div, div])

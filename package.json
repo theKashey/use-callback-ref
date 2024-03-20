@@ -30,9 +30,10 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^2.1.6",
+    "@size-limit/preset-small-lib": "^11.0.2",
+    "size-limit": "^11.0.2",
     "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^14.1.2",
+    "@testing-library/react": "^14.2.1",
     "@theuiteam/lib-builder": "^0.3.0",
     "jest-environment-jsdom": "^29.7.0"
   },
