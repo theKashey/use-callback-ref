@@ -2,16 +2,19 @@
   {
     "name": "dist/es2015/index.js",
     "passed": true,
-    "size": 467
+    "size": 743,
+    "sizeLimit": 800
   },
   {
     "name": "dist/es2015/useRef.js",
     "passed": true,
-    "size": 125
+    "size": 245,
+    "sizeLimit": 250
   },
   {
     "name": "dist/es2015/useMergeRef.js",
     "passed": true,
-    "size": 270
+    "size": 595,
+    "sizeLimit": 600
   }
 ]
