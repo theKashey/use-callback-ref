@@ -1,0 +1,23 @@
+{
+    "name": "@bureaudouble-forks/use-callback-ref",
+    "version": "0.0.1",
+    "nodeModulesDir": false,
+    "compilerOptions": {
+      "noErrorTruncation": true,
+      "lib": [
+        "dom",
+        "dom.iterable",
+        "dom.asynciterable",
+        "deno.ns"
+      ]
+    },
+    "imports": {
+      "react": "npm:react@^18.2",
+      "react-style-singleton": "jsr:@bureaudouble-forks/react-style-singleton@0.0.1",
+      "react-remove-scroll-bar": "jsr:@bureaudouble-forks/react-remove-scroll-bar@0.0.2"
+    },
+    "exports": {
+      ".": "./src/index.ts"
+    }
+  }
+  

@@ -1,4 +1,4 @@
-import { DefinedReactRef, ReactRef, RefCallback } from './types';
+import { DefinedReactRef, ReactRef, RefCallback } from './types.ts';
 
 /**
  * Unmemoized version of {@link useRefToCallback}

@@ -1,8 +1,9 @@
+// @deno-types="npm:@types/react@^18.2"
 import { MutableRefObject } from 'react';
 
-import { assignRef } from './assignRef';
-import { createCallbackRef } from './createRef';
-import { ReactRef } from './types';
+import { assignRef } from './assignRef.ts';
+import { createCallbackRef } from './createRef.ts';
+import { ReactRef } from './types.ts';
 
 /**
  * Merges two or more refs together providing a single interface to set their value

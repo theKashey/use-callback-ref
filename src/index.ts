@@ -1,16 +1,16 @@
-export { assignRef } from './assignRef';
+export { assignRef } from './assignRef.ts';
 
 // callback ref
-export { useCallbackRef } from './useRef';
-export { createCallbackRef } from './createRef';
+export { useCallbackRef } from './useRef.ts';
+export { createCallbackRef } from './createRef.ts';
 
 // merge ref
-export { mergeRefs } from './mergeRef';
-export { useMergeRefs } from './useMergeRef';
+export { mergeRefs } from './mergeRef.ts';
+export { useMergeRefs } from './useMergeRef.ts';
 
 // transform ref
-export { useTransformRef } from './useTransformRef';
-export { transformRef } from './transformRef';
+export { useTransformRef } from './useTransformRef.ts';
+export { transformRef } from './transformRef.ts';
 
 // refToCallback
-export { refToCallback, useRefToCallback } from './refToCallback';
+export { refToCallback, useRefToCallback } from './refToCallback.ts';

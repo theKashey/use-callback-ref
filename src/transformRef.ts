@@ -1,6 +1,6 @@
-import { assignRef } from './assignRef';
-import { createCallbackRef } from './createRef';
-import { ReactRef, RefObject } from './types';
+import { assignRef } from './assignRef.ts';
+import { createCallbackRef } from './createRef.ts';
+import { ReactRef, RefObject } from './types.ts';
 
 /**
  * Transforms one ref to another
