@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { assignRef } from './assignRef';
-import { ReactRef } from './types';
-import { useCallbackRef } from './useRef';
+import { assignRef } from './assignRef.ts';
+import { ReactRef } from './types.ts';
+import { useCallbackRef } from './useRef.ts';
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 

@@ -1,3 +1,4 @@
+// @deno-types="npm:@types/react@^18.2"
 import * as React from 'react';
 
 export type RefCallback<T> = (newValue: T | null) => void;

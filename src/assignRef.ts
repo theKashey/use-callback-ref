@@ -1,4 +1,4 @@
-import { ReactRef } from './types';
+import { ReactRef } from './types.ts';
 
 /**
  * Assigns a value for a given ref, no matter of the ref format
