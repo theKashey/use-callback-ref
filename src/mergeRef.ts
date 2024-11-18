@@ -1,4 +1,4 @@
-// @deno-types="npm:@types/react@^18.2"
+// @ts-types="@types/react"
 import { MutableRefObject } from 'react';
 
 import { assignRef } from './assignRef.ts';
