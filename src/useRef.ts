@@ -1,3 +1,4 @@
+// @ts-types="@types/react"
 import { MutableRefObject, useState } from 'react';
 
 /**

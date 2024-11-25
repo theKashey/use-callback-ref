@@ -1,3 +1,4 @@
+// @ts-types="@types/react"
 import { RefObject } from 'react';
 
 /**
@@ -8,7 +9,7 @@ import { RefObject } from 'react';
  * @see {@link useCallbackRef}
  * @see https://reactjs.org/docs/refs-and-the-dom.html#creating-refs
  */
-export function createCallbackRef<T>(callback: (newValue: T | null, lastValue: T | null) => any): RefObject<T> {
+export function createCallbackRef<T>(callback: (newValue: T | null, lastValue: T | null) => any): RefObject<T | null> {
   let current: T | null = null;
 
   return {

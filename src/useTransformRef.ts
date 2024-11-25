@@ -1,6 +1,6 @@
-import { assignRef } from './assignRef';
-import { ReactRef, RefObject } from './types';
-import { useCallbackRef } from './useRef';
+import { assignRef } from './assignRef.ts';
+import { ReactRef, RefObject } from './types.ts';
+import { useCallbackRef } from './useRef.ts';
 
 /**
  * Create a _lense_ on Ref, making it possible to transform ref value

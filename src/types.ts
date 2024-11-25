@@ -1,3 +1,4 @@
+// @ts-types="@types/react"
 import * as React from 'react';
 
 export type RefCallback<T> = (newValue: T | null) => void;
